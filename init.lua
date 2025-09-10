@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -412,7 +412,23 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          live_grep = {
+            file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+            additional_args = function(_)
+              return { '--hidden' }
+            end,
+          },
+          find_files = {
+            file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+            hidden = true,
+          },
+        },
+        --
+        --
+        --
+        --
+        --
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -435,7 +451,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' }) -- not needed when having the bufferline function //Malin
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -742,7 +758,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>cf',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -973,13 +989,15 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
+  require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.bufferline', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
+  --
+  --
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
@@ -1012,5 +1030,29 @@ require('lazy').setup({
   },
 })
 
+-- show path
+vim.opt.winbar = '%=%m %f'
+
+-- Disable LazyVim auto format
+vim.g.autoformat = false
+
+-- Malins own keymaps --
+--
+vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>')
+
+vim.keymap.set('n', '<Leader>f', ':normal! gg=G<CR>', { noremap = true, silent = true, desc = 'Formatting indent' })
+
+-- keymaps for choosing buffer by number
+vim.keymap.set('n', '<leader>1', ':JumpBufferByOrdinal 1<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>2', ':JumpBufferByOrdinal 2<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>3', ':JumpBufferByOrdinal 3<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>4', ':JumpBufferByOrdinal 4<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>5', ':JumpBufferByOrdinal 5<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>6', ':JumpBufferByOrdinal 6<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>7', ':JumpBufferByOrdinal 7<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>8', ':JumpBufferByOrdinal 8<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>9', ':JumpBufferByOrdinal 9<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+require 'kickstart.config.bufferline' -- the config function needs to be run after the keymaps //Malin
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
