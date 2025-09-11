@@ -174,7 +174,7 @@ vim.o.confirm = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' }) -- //Malin
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -346,6 +346,9 @@ require('lazy').setup({
       spec = {
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
+        { '<leader>c', group = '[C]lose' }, -- //Malin
+        { '<leader>q', group = '[Q]uickfixList opts' }, -- //Malin
+        { '<leader>p', group = 's[P]lit screen' }, -- //Malin
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
@@ -451,7 +454,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' }) -- not needed when having the bufferline function //Malin
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -1037,6 +1040,24 @@ vim.opt.winbar = '%=%m %f'
 vim.g.autoformat = false
 
 -- Malins own keymaps --
+--
+vim.keymap.set('n', '<Leader>cb', ':bp | bd#<CR>', { noremap = true, silent = true, desc = 'Delete current buffer' })
+vim.keymap.set('n', '<Leader>cq', ':q<CR>', { noremap = true, silent = true, desc = 'Close current screen' })
+vim.keymap.set('n', '<Leader>ca', ':qa<CR>', { noremap = true, silent = true, desc = 'Close all' })
+vim.keymap.set('n', '<Leader>co', ':only<CR>', { noremap = true, silent = true, desc = 'Only keep current screen, close rest' })
+vim.keymap.set('n', '<Leader>qs', ':cfdo vsplit<CR>', { noremap = true, silent = true, desc = 'Open all in splits' })
+vim.keymap.set('n', '<Leader>qb', ':cfdo badd %<CR>', { noremap = true, silent = true, desc = 'Open all as buffers' })
+vim.keymap.set('n', '<Leader>på', ':vsplit<CR>', { noremap = true, silent = true, desc = 'Open split vertical' })
+vim.keymap.set('n', '<Leader>pö', ':split<CR>', { noremap = true, silent = true, desc = 'Open split horisontal' })
+vim.keymap.set('n', '<Leader>w', ':w<CR>', { noremap = true, silent = true, desc = 'Write' })
+--
+vim.keymap.set('n', '<Leader>tw', function()
+  if vim.wo.wrap then
+    vim.wo.wrap = false
+  else
+    vim.wo.wrap = true
+  end
+end, { noremap = true, silent = true, desc = 'Toggle wrap' })
 --
 vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>')
 
