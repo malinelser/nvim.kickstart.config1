@@ -410,11 +410,15 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          layout_strategy = 'horizontal',
+          layout_config = {
+            width = 0.999,
+            height = 0.999,
+            preview_width = 0.3,
+          },
+        },
+        --
         pickers = {
           live_grep = {
             file_ignore_patterns = { 'node_modules', '.git', '.venv' },
@@ -1045,8 +1049,9 @@ vim.keymap.set('n', '<Leader>cb', ':bp | bd#<CR>', { noremap = true, silent = tr
 vim.keymap.set('n', '<Leader>cq', ':q<CR>', { noremap = true, silent = true, desc = 'Close current screen' })
 vim.keymap.set('n', '<Leader>ca', ':qa<CR>', { noremap = true, silent = true, desc = 'Close all' })
 vim.keymap.set('n', '<Leader>co', ':only<CR>', { noremap = true, silent = true, desc = 'Only keep current screen, close rest' })
-vim.keymap.set('n', '<Leader>qs', ':cfdo vsplit<CR>', { noremap = true, silent = true, desc = 'Open all in splits' })
+vim.keymap.set('n', '<Leader>qs', ':cfdo vsplit<CR>:q<CR>', { noremap = true, silent = true, desc = 'Open all in splits' })
 vim.keymap.set('n', '<Leader>qb', ':cfdo badd %<CR>', { noremap = true, silent = true, desc = 'Open all as buffers' })
+vim.keymap.set('n', '<Leader>qq', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close QFlist' })
 vim.keymap.set('n', '<Leader>på', ':vsplit<CR>', { noremap = true, silent = true, desc = 'Open split vertical' })
 vim.keymap.set('n', '<Leader>pö', ':split<CR>', { noremap = true, silent = true, desc = 'Open split horisontal' })
 vim.keymap.set('n', '<Leader>w', ':w<CR>', { noremap = true, silent = true, desc = 'Write' })
