@@ -1055,6 +1055,10 @@ vim.keymap.set('n', '<Leader>qq', ':cclose<CR>', { noremap = true, silent = true
 vim.keymap.set('n', '<Leader>på', ':vsplit<CR>', { noremap = true, silent = true, desc = 'Open split vertical' })
 vim.keymap.set('n', '<Leader>pö', ':split<CR>', { noremap = true, silent = true, desc = 'Open split horisontal' })
 vim.keymap.set('n', '<Leader>w', ':w<CR>', { noremap = true, silent = true, desc = 'Write' })
+vim.keymap.set('n', '<C-right>', ':vertical resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
+vim.keymap.set('n', '<C-left>', ':vertical resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
+vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
+vim.keymap.set('n', '<C-down>', ':resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 --
 vim.keymap.set('n', '<Leader>tw', function()
   if vim.wo.wrap then
