@@ -765,7 +765,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>cf',
+        '<leader>ff',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -1003,6 +1003,7 @@ require('lazy').setup({
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'kickstart.plugins.bufferline', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
+  require 'kickstart.plugins.leap', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
   --
   --
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -1049,6 +1050,7 @@ vim.keymap.set('n', '<Leader>cb', ':bp | bd#<CR>', { noremap = true, silent = tr
 vim.keymap.set('n', '<Leader>cq', ':q<CR>', { noremap = true, silent = true, desc = 'Close current screen' })
 vim.keymap.set('n', '<Leader>ca', ':qa<CR>', { noremap = true, silent = true, desc = 'Close all' })
 vim.keymap.set('n', '<Leader>co', ':only<CR>', { noremap = true, silent = true, desc = 'Only keep current screen, close rest' })
+vim.keymap.set('n', '<Leader>cf', ':fc<CR>', { noremap = true, silent = true, desc = 'Close float' })
 vim.keymap.set('n', '<Leader>qs', ':cfdo vsplit<CR>:q<CR>', { noremap = true, silent = true, desc = 'Open all in splits' })
 vim.keymap.set('n', '<Leader>qb', ':cfdo badd %<CR>', { noremap = true, silent = true, desc = 'Open all as buffers' })
 vim.keymap.set('n', '<Leader>qq', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close QFlist' })
