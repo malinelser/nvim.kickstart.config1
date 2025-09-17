@@ -349,6 +349,7 @@ require('lazy').setup({
         { '<leader>c', group = '[C]lose' }, -- //Malin
         { '<leader>q', group = '[Q]uickfixList opts' }, -- //Malin
         { '<leader>p', group = 's[P]lit screen' }, -- //Malin
+        { '<leader>m', group = 'Treesitter motions' }, -- //Malin
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
@@ -765,7 +766,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>ff',
+        '<leader>F',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -974,27 +975,75 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    main = 'nvim-treesitter.configs',
+    opts = {
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'javascript',
+        'jsdoc',
+        'json',
+        'jsonc',
+        'lua',
+        'luadoc',
+        'luap',
+        'markdown',
+        'markdown_inline',
+        'printf',
+        'python',
+        'query',
+        'regex',
+        'toml',
+        'tsx',
+        'typescript',
+        'vim',
+        'vimdoc',
+        'xml',
+        'yaml',
+      },
+      auto_install = true,
+      highlight = { enable = true, additional_vim_regex_highlighting = { 'ruby' } },
+      indent = { enable = true, disable = { 'ruby' } },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<leader>mi',
+          node_incremental = '<leader>mm',
+          scope_incremental = '<leader>mn',
+          node_decremental = '<leader>mb',
+        },
+      },
+      textobjects = {
+        move = {
+          enable = true,
+          goto_next_start = {
+            ['<leader>nf'] = '@function.outer',
+            ['<leader>nc'] = '@class.outer',
+            ['<leader>na'] = '@parameter.inner',
+          },
+          goto_next_end = {
+            ['<leader>nF'] = '@function.outer',
+            ['<leader>nC'] = '@class.outer',
+            ['<leader>nA'] = '@parameter.inner',
+          },
+          goto_previous_start = {
+            ['<leader>pf'] = '@function.outer',
+            ['<leader>pc'] = '@class.outer',
+            ['<leader>pa'] = '@parameter.inner',
+          },
+          goto_previous_end = {
+            ['<leader>pF'] = '@function.outer',
+            ['<leader>pC'] = '@class.outer',
+            ['<leader>pA'] = '@parameter.inner',
+          },
+        },
+      },
+    },
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -1071,6 +1120,7 @@ vim.keymap.set('n', '<C-right>', ':vertical resize +1<CR>', { noremap = true, si
 vim.keymap.set('n', '<C-left>', ':vertical resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
 vim.keymap.set('n', '<C-down>', ':resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
+vim.keymap.set('n', '<Leader>v', '<C-v>', { noremap = true, silent = true, desc = 'Block visualizing' })
 --
 vim.keymap.set('n', '<Leader>tw', function()
   if vim.wo.wrap then
