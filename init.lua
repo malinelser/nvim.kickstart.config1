@@ -349,7 +349,7 @@ require('lazy').setup({
         { '<leader>c', group = '[C]lose' }, -- //Malin
         { '<leader>q', group = '[Q]uickfixList opts' }, -- //Malin
         { '<leader>p', group = 's[P]lit screen' }, -- //Malin
-        { '<leader>m', group = 'Treesitter motions' }, -- //Malin
+        { '<leader>g', group = 'Treesitter motions' }, -- //Malin
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
@@ -1012,34 +1012,34 @@ require('lazy').setup({
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<leader>mi',
-          node_incremental = '<leader>mm',
-          scope_incremental = '<leader>mn',
-          node_decremental = '<leader>mb',
+          init_selection = '<leader>gi',
+          node_incremental = '<leader>gg',
+          scope_incremental = '<leader>gs',
+          node_decremental = '<leader>gb',
         },
       },
       textobjects = {
         move = {
           enable = true,
           goto_next_start = {
-            ['<leader>nf'] = '@function.outer',
-            ['<leader>nc'] = '@class.outer',
-            ['<leader>na'] = '@parameter.inner',
+            ['<leader>gnf'] = '@function.outer',
+            ['<leader>gnc'] = '@class.outer',
+            ['<leader>gna'] = '@parameter.inner',
           },
           goto_next_end = {
-            ['<leader>nF'] = '@function.outer',
-            ['<leader>nC'] = '@class.outer',
-            ['<leader>nA'] = '@parameter.inner',
+            ['<leader>gF'] = '@function.outer',
+            ['<leader>gC'] = '@class.outer',
+            ['<leader>gA'] = '@parameter.inner',
           },
           goto_previous_start = {
-            ['<leader>pf'] = '@function.outer',
-            ['<leader>pc'] = '@class.outer',
-            ['<leader>pa'] = '@parameter.inner',
+            ['<leader>gf'] = '@function.outer',
+            ['<leader>gc'] = '@class.outer',
+            ['<leader>ga'] = '@parameter.inner',
           },
           goto_previous_end = {
-            ['<leader>pF'] = '@function.outer',
-            ['<leader>pC'] = '@class.outer',
-            ['<leader>pA'] = '@parameter.inner',
+            ['<leader>gpF'] = '@function.outer',
+            ['<leader>gpC'] = '@class.outer',
+            ['<leader>gpA'] = '@parameter.inner',
           },
         },
       },
@@ -1140,7 +1140,7 @@ vim.keymap.set('n', '<leader>2', ':JumpBufferByOrdinal 2<CR>', { noremap = true,
 vim.keymap.set('n', '<leader>3', ':JumpBufferByOrdinal 3<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>4', ':JumpBufferByOrdinal 4<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>5', ':JumpBufferByOrdinal 5<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
-vim.keymap.set('n', '<leader>6', ':JumpBufferByOrdinal 6<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>6', ':JumpjufferByOrdinal 6<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>7', ':JumpBufferByOrdinal 7<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>8', ':JumpBufferByOrdinal 8<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>9', ':JumpBufferByOrdinal 9<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
