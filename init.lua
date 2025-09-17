@@ -977,6 +977,7 @@ require('lazy').setup({
     build = ':TSUpdate',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'nvim-treesitter/nvim-treesitter-refactor',
     },
     main = 'nvim-treesitter.configs',
     opts = {
@@ -1040,6 +1041,19 @@ require('lazy').setup({
             ['<leader>gpF'] = '@function.outer',
             ['<leader>gpC'] = '@class.outer',
             ['<leader>gpA'] = '@parameter.inner',
+          },
+        },
+      },
+      refactor = {
+        navigation = {
+          enable = true,
+          -- Assign keymaps to false to disable them, e.g. `goto_definition = false`.
+          keymaps = {
+            goto_definition = '<leader>gd',
+            list_definitions = '<leader>gnD',
+            list_definitions_toc = '<leader>gO',
+            goto_next_usage = '<leader>g.',
+            goto_previous_usage = '<leader>g,',
           },
         },
       },
