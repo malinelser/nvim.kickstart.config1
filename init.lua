@@ -1,8 +1,6 @@
 --[[
 
 =====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
 ========                                    .-----.          ========
 ========         .----------------------.   | === |          ========
 ========         |.-""""""""""""""""""-.|   |-----|          ========
@@ -1142,8 +1140,6 @@ vim.opt.sessionoptions:append { "buffers", "tabpages", "winsize" } -- only save 
 
 -- Malins own keymaps --
 --
-vim.keymap.set("n", "<leader>ws", [[:mksession ~/.config/nvim/sessions/project25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }) -- save session
-vim.keymap.set("n", "<leader>wo", [[:source ~/.config/nvim/sessions/project25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'open saved session' }) -- open saved session
 vim.keymap.set('n', '<Leader>cb', ':bp | bd#<CR>', { noremap = true, silent = true, desc = 'Delete current buffer' })
 vim.keymap.set('n', '<Leader>cq', ':q<CR>', { noremap = true, silent = true, desc = 'Close current screen' })
 vim.keymap.set('n', '<Leader>ca', ':qa<CR>', { noremap = true, silent = true, desc = 'Close all' })
@@ -1224,5 +1220,15 @@ vim.keymap.set("x", "P", "\"_dP", { noremap = true, silent = true })
 -- <C-x> → behave like classic 'd' (delete + yank)
 vim.keymap.set({"n", "x", "o"}, "<C-x>", "d", { noremap = true })
 --
--- The line beneath this is called `modeline`. See `:help modeline`
+-- save / open saved sessions
+vim.keymap.set("n", "<leader>ws", [[:mksession ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }) -- save session
+vim.keymap.set("n", "<leader>wo", [[:source ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'open saved session' }) -- open saved session
+-- run the which-key session config and add the keymap
+local wk = require("which-key")
+local sessions = require("kickstart.config.sessions") -- match the file name
+wk.register({
+  wd = vim.tbl_extend("force", { name = "Display saved sessions" }, sessions.get_mappings())
+}, { prefix = "<leader>" })
+--
+-- The line beneath this is called `modeline`. See `:help modeline--
 -- vim: ts=2 sts=2 sw=2 et
