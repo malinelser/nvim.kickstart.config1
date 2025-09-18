@@ -1129,7 +1129,7 @@ vim.keymap.set('n', '<Leader>qb', ':cfdo badd %<CR>', { noremap = true, silent =
 vim.keymap.set('n', '<Leader>qq', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close QFlist' })
 vim.keymap.set('n', '<Leader>på', ':vsplit<CR>', { noremap = true, silent = true, desc = 'Open split vertical' })
 vim.keymap.set('n', '<Leader>pö', ':split<CR>', { noremap = true, silent = true, desc = 'Open split horisontal' })
-vim.keymap.set('n', '<Leader>w', ':w<CR>', { noremap = true, silent = true, desc = 'Write' })
+vim.keymap.set('n', '<Leader>w', ':noautocmd w<CR>', { noremap = true, silent = true, desc = 'Write' })
 vim.keymap.set('n', '<C-right>', ':vertical resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
 vim.keymap.set('n', '<C-left>', ':vertical resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
@@ -1159,6 +1159,45 @@ vim.keymap.set('n', '<leader>7', ':JumpBufferByOrdinal 7<CR>', { noremap = true,
 vim.keymap.set('n', '<leader>8', ':JumpBufferByOrdinal 8<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>9', ':JumpBufferByOrdinal 9<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 require 'kickstart.config.bufferline' -- the config function needs to be run after the keymaps //Malin
+--
+-- Primeagens keymaps //Malin
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- move visual text
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "J", "mzJ`z") -- when appending line below to upper line the cursor stays at 0
+vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- standing on a word, replace it  
+--
+--
+---- ======================================
+-- "Y-only Yanks" Neovim config (with <C-x> as old delete+yank)
+--  - all delete/change/substitute/replace ops → black hole
+--  - <C-x> gives you the old yank+delete if you want it
+--  - visual paste won't clobber your yank
+-- ======================================
+--
+--
+-- Normal + Visual + Operator-pending: delete/change/substitute/replace → black hole
+vim.keymap.set({"n", "x", "o"}, "d", "\"_d", { noremap = true })
+vim.keymap.set({"n", "x", "o"}, "dd", "\"_dd", { noremap = true })
+vim.keymap.set({"n", "x", "o"}, "D", "\"_D", { noremap = true })
+vim.keymap.set({"n", "x", "o"}, "c", "\"_c", { noremap = true })
+vim.keymap.set({"n", "x", "o"}, "C", "\"_C", { noremap = true })
+vim.keymap.set({"n", "x", "o"}, "x", "\"_x", { noremap = true })
+vim.keymap.set({"n", "x", "o"}, "X", "\"_X", { noremap = true })
+vim.keymap.set({"n", "x", "o"}, "s", "\"_s", { noremap = true })
+vim.keymap.set({"n", "x", "o"}, "S", "\"_S", { noremap = true })
+
+-- Replace (character-wise) → black hole safe
+vim.keymap.set("n", "r", "\"_r", { noremap = true })
+vim.keymap.set("n", "R", "\"_R", { noremap = true })
+vim.keymap.set("n", "gr", "\"_gr", { noremap = true })
+vim.keymap.set("n", "gR", "\"_gR", { noremap = true })
+
+-- Visual mode paste: don't yank replaced text
+vim.keymap.set("x", "p", "\"_dP", { noremap = true, silent = true })
+vim.keymap.set("x", "P", "\"_dP", { noremap = true, silent = true })
+
+-- <C-x> → behave like classic 'd' (delete + yank)
+vim.keymap.set({"n", "x", "o"}, "<C-x>", "d", { noremap = true })
 --
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
