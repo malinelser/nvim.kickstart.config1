@@ -350,6 +350,7 @@ require('lazy').setup({
         { '<leader>q', group = '[Q]uickfixList opts' }, -- //Malin
         { '<leader>p', group = 's[P]lit screen' }, -- //Malin
         { '<leader>g', group = 'Treesitter motions' }, -- //Malin
+        { '<leader>w', group = 'Write/Save/Open' }, -- //Malin
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
@@ -1117,8 +1118,12 @@ vim.opt.winbar = '%=%m %f'
 -- Disable LazyVim auto format
 vim.g.autoformat = false
 
+vim.opt.sessionoptions:append { "buffers", "tabpages", "winsize" } -- only save this to session
+
 -- Malins own keymaps --
 --
+vim.keymap.set("n", "<leader>ws", [[:mksession ~/.config/nvim/sessions/project25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }) -- save session
+vim.keymap.set("n", "<leader>wo", [[:source ~/.config/nvim/sessions/project25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'open saved session' }) -- open saved session
 vim.keymap.set('n', '<Leader>cb', ':bp | bd#<CR>', { noremap = true, silent = true, desc = 'Delete current buffer' })
 vim.keymap.set('n', '<Leader>cq', ':q<CR>', { noremap = true, silent = true, desc = 'Close current screen' })
 vim.keymap.set('n', '<Leader>ca', ':qa<CR>', { noremap = true, silent = true, desc = 'Close all' })
@@ -1129,7 +1134,7 @@ vim.keymap.set('n', '<Leader>qb', ':cfdo badd %<CR>', { noremap = true, silent =
 vim.keymap.set('n', '<Leader>qq', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close QFlist' })
 vim.keymap.set('n', '<Leader>på', ':vsplit<CR>', { noremap = true, silent = true, desc = 'Open split vertical' })
 vim.keymap.set('n', '<Leader>pö', ':split<CR>', { noremap = true, silent = true, desc = 'Open split horisontal' })
-vim.keymap.set('n', '<Leader>w', ':noautocmd w<CR>', { noremap = true, silent = true, desc = 'Write' })
+vim.keymap.set('n', '<Leader>ww', ':noautocmd w<CR>', { noremap = true, silent = true, desc = 'Write' })
 vim.keymap.set('n', '<C-right>', ':vertical resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
 vim.keymap.set('n', '<C-left>', ':vertical resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
