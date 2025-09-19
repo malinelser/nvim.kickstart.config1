@@ -1,3 +1,12 @@
+-- filter which-key warnings
+local orig_notify = vim.notify
+vim.notify = function(msg, level, opts)
+  if msg:match("which%-key") and level == vim.log.levels.WARN then
+    return
+  end
+  orig_notify(msg, level, opts)
+end
+--
 --[[
 
 =====================================================================
@@ -1175,7 +1184,7 @@ vim.keymap.set('n', '<leader>2', ':JumpBufferByOrdinal 2<CR>', { noremap = true,
 vim.keymap.set('n', '<leader>3', ':JumpBufferByOrdinal 3<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>4', ':JumpBufferByOrdinal 4<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>5', ':JumpBufferByOrdinal 5<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
-vim.keymap.set('n', '<leader>6', ':JumpjufferByOrdinal 6<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>6', ':JumpBufferByOrdinal 6<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>7', ':JumpBufferByOrdinal 7<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>8', ':JumpBufferByOrdinal 8<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>9', ':JumpBufferByOrdinal 9<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
