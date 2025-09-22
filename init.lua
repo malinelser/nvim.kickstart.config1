@@ -1165,6 +1165,9 @@ vim.keymap.set('n', '<C-left>', ':vertical resize -1<CR>', { noremap = true, sil
 vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
 vim.keymap.set('n', '<C-down>', ':resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 vim.keymap.set('n', '<Leader>v', '<C-v>', { noremap = true, silent = true, desc = 'Block visualizing' })
+vim.keymap.set('n', '<Leader>sF', ':lua require("telescope.builtin").find_files({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search files in current folder' })
+vim.keymap.set('n', '<Leader>sG', ':lua require("telescope").extensions.live_grep_args.live_grep_args({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search Grep in current folder' })
+vim.keymap.set('n', '<Leader>sW', ':lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search Word in current folder' })
 --
 vim.keymap.set('n', '<Leader>tw', function()
   if vim.wo.wrap then
