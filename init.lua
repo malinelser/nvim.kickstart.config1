@@ -463,6 +463,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
@@ -1168,8 +1169,8 @@ vim.keymap.set('n', '<Leader>v', '<C-v>', { noremap = true, silent = true, desc 
 --
 -- Telescope stuff
 vim.keymap.set('n', '<Leader>sF', ':lua require("telescope.builtin").find_files({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search files in current folder' })
-vim.keymap.set('n', '<Leader>sG', ':lua require("telescope").extensions.live_grep_args.live_grep_args({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search Grep in current folder' })
-vim.keymap.set('n', '<Leader>sW', ':lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search Word in current folder' })
+vim.keymap.set('n', '<Leader>sG', ':Telescope live_grep cwd=%:p:h<CR>', { noremap = true, silent = true, desc = 'Search Grep in current folder' })
+vim.keymap.set('n', '<Leader>sW', ':Telescope grep_string cwd=<C-r>=expand("%:p:h")<CR><CR>', { noremap = true, silent = true, desc = 'Search Word in current folder' })
 -- telescope function to search file name under cursor
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sn", function()
