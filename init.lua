@@ -1227,13 +1227,13 @@ vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 --
 ---- ======================================
 -- "Y-only Yanks" Neovim config (with <C-x> as old delete+yank)
---  - all delete/change/substitute/replace ops → black hole
+--  - all delete/change/replace ops → black hole
 --  - <C-x> gives you the old yank+delete if you want it
 --  - visual paste won't clobber your yank
 -- ======================================
 --
 --
--- Normal + Visual + Operator-pending: delete/change/substitute/replace → black hole
+-- Normal + Visual + Operator-pending: delete/change/replace → black hole
 vim.keymap.set({"n", "x", "o"}, "d", "\"_d", { noremap = true })
 vim.keymap.set({"n", "x", "o"}, "dd", "\"_dd", { noremap = true })
 vim.keymap.set({"n", "x", "o"}, "D", "\"_D", { noremap = true })
@@ -1241,8 +1241,6 @@ vim.keymap.set({"n", "x", "o"}, "c", "\"_c", { noremap = true })
 vim.keymap.set({"n", "x", "o"}, "C", "\"_C", { noremap = true })
 vim.keymap.set({"n", "x", "o"}, "x", "\"_x", { noremap = true })
 vim.keymap.set({"n", "x", "o"}, "X", "\"_X", { noremap = true })
-vim.keymap.set({"n", "x", "o"}, "s", "\"_s", { noremap = true })
-vim.keymap.set({"n", "x", "o"}, "S", "\"_S", { noremap = true })
 
 -- Replace (character-wise) → black hole safe
 vim.keymap.set("n", "r", "\"_r", { noremap = true })
