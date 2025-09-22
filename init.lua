@@ -1168,9 +1168,26 @@ vim.keymap.set('n', '<C-down>', ':resize -1<CR>', { noremap = true, silent = tru
 vim.keymap.set('n', '<Leader>v', '<C-v>', { noremap = true, silent = true, desc = 'Block visualizing' })
 --
 -- Telescope stuff
-vim.keymap.set('n', '<Leader>sF', ':lua require("telescope.builtin").find_files({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search files in current folder' })
-vim.keymap.set('n', '<Leader>sG', ':Telescope live_grep cwd=%:p:h<CR>', { noremap = true, silent = true, desc = 'Search Grep in current folder' })
-vim.keymap.set('n', '<Leader>sW', ':Telescope grep_string cwd=<C-r>=expand("%:p:h")<CR><CR>', { noremap = true, silent = true, desc = 'Search Word in current folder' })
+-- Search files in parent folder
+vim.keymap.set('n', '<Leader>sF', function()
+  require("telescope.builtin").find_files({
+    cwd = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":h"),
+  })
+end, { noremap = true, silent = true, desc = 'Search files in parent folder' })
+
+-- Live Grep in parent folder
+vim.keymap.set('n', '<Leader>sG', function()
+  require("telescope.builtin").live_grep({
+    cwd = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":h"),
+  })
+end, { noremap = true, silent = true, desc = 'Search Grep in parent folder' })
+
+-- Grep word in parent folder
+vim.keymap.set('n', '<Leader>sW', function()
+  require("telescope.builtin").grep_string({
+    cwd = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":h"),
+  })
+end, { noremap = true, silent = true, desc = 'Search Word in parent folder' })
 -- telescope function to search file name under cursor
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sn", function()
@@ -1182,10 +1199,10 @@ end, { desc = "[S]earch file [N]ame under cursor" })
 local builtin2 = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sN", function()
   builtin2.find_files({
-    cwd = vim.fn.expand("%:p:h"),
+    cwd = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":h"),
     default_text = vim.fn.expand("<cword>"),  -- word under cursor
   })
-end, { desc = "[S]earch file [N]ame under cursor in current folder" })
+end, { desc = "[S]earch file [N]ame under cursor in parent folder" })
 --
 vim.keymap.set('n', '<Leader>tw', function()
   if vim.wo.wrap then
