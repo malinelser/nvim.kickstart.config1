@@ -1165,9 +1165,34 @@ vim.keymap.set('n', '<C-left>', ':vertical resize -1<CR>', { noremap = true, sil
 vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
 vim.keymap.set('n', '<C-down>', ':resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 vim.keymap.set('n', '<Leader>v', '<C-v>', { noremap = true, silent = true, desc = 'Block visualizing' })
+--
+-- Telescope stuff
 vim.keymap.set('n', '<Leader>sF', ':lua require("telescope.builtin").find_files({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search files in current folder' })
 vim.keymap.set('n', '<Leader>sG', ':lua require("telescope").extensions.live_grep_args.live_grep_args({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search Grep in current folder' })
 vim.keymap.set('n', '<Leader>sW', ':lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({cwd = vim.fn.expand("%:p:h")})<CR>', { noremap = true, silent = true, desc = 'Search Word in current folder' })
+-- telescope function to search file name under cursor
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>sn", function()
+  builtin.find_files({
+    default_text = vim.fn.expand("<cword>"),  -- word under cursor
+  })
+end, { desc = "[S]earch file [N]ame under cursor" })
+-- telescope function to search file name under cursor
+local builtin2 = require("telescope.builtin")
+vim.keymap.set("n", "<leader>sN", function()
+  builtin2.find_files({
+    cwd = vim.fn.expand("%:p:h"),
+    default_text = vim.fn.expand("<cword>"),  -- word under cursor
+  })
+end, { desc = "[S]earch file [N]ame under cursor in current folder" })
+--
+vim.keymap.set('n', '<Leader>tw', function()
+  if vim.wo.wrap then
+    vim.wo.wrap = false
+  else
+    vim.wo.wrap = true
+  end
+end, { noremap = true, silent = true, desc = 'Toggle wrap' })
 --
 vim.keymap.set('n', '<Leader>tw', function()
   if vim.wo.wrap then
