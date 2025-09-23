@@ -424,7 +424,7 @@ require('lazy').setup({
           layout_config = {
             width = 0.999,
             height = 0.999,
-            preview_width = 0.3,
+            preview_width = 0.45,
           },
         },
         --
@@ -1282,6 +1282,20 @@ local sessions = require("kickstart.config.sessions") -- match the file name
 wk.register({
   wd = vim.tbl_extend("force", { name = "Display saved sessions" }, sessions.get_mappings())
 }, { prefix = "<leader>" })
+--
+-- save to clipboard history win+v, first you need to download it from https://github.com/equalsraf/win32yank/releases and then put it in C:\win32yank-x64 (no setup in windows required)
+vim.g.clipboard = {
+  name = "win32yank-wsl",
+  copy = {
+    ["+"] = "/mnt/c/win32yank-x64/win32yank.exe -i --crlf",
+    ["*"] = "/mnt/c/win32yank-x64/win32yank.exe -i --crlf",
+  },
+  paste = {
+    ["+"] = "/mnt/c/win32yank-x64/win32yank.exe -o --lf",
+    ["*"] = "/mnt/c/win32yank-x64/win32yank.exe -o --lf",
+  },
+  cache_enabled = 0,
+}
 --
 -- The line beneath this is called `modeline`. See `:help modeline--
 -- vim: ts=2 sts=2 sw=2 et
