@@ -1061,8 +1061,8 @@ require('lazy').setup({
             goto_definition = '<leader>gd',
             list_definitions = '<leader>gnD',
             list_definitions_toc = '<leader>gO',
-            goto_next_usage = '<leader>g.',
-            goto_previous_usage = '<leader>g,',
+            goto_next_usage = '<leader>.',
+            goto_previous_usage = '<leader>,',
           },
         },
       },
@@ -1242,6 +1242,16 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z") -- when appending line below to upper line the cursor stays at 0
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- standing on a word, replace it  
 --
+-- save / open saved sessions
+vim.keymap.set("n", "<leader>ws", [[:mksession ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }) -- save session
+vim.keymap.set("n", "<leader>wo", [[:source ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'open saved session' }) -- open saved session
+-- run the which-key session config and add the keymap
+local wk = require("which-key")
+local sessions = require("kickstart.config.sessions") -- match the file name
+wk.register({
+  wd = vim.tbl_extend("force", { name = "Display saved sessions" }, sessions.get_mappings())
+}, { prefix = "<leader>" })
+--
 --
 ---- ======================================
 -- "Y-only Yanks" Neovim config (with <C-x> as old delete+yank)
@@ -1273,16 +1283,6 @@ vim.keymap.set("x", "P", "\"_dP", { noremap = true, silent = true })
 -- <C-x> → behave like classic 'd' (delete + yank)
 vim.keymap.set({"n", "x", "o"}, "<C-x>", "d", { noremap = true })
 --
--- save / open saved sessions
-vim.keymap.set("n", "<leader>ws", [[:mksession ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }) -- save session
-vim.keymap.set("n", "<leader>wo", [[:source ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'open saved session' }) -- open saved session
--- run the which-key session config and add the keymap
-local wk = require("which-key")
-local sessions = require("kickstart.config.sessions") -- match the file name
-wk.register({
-  wd = vim.tbl_extend("force", { name = "Display saved sessions" }, sessions.get_mappings())
-}, { prefix = "<leader>" })
---
 -- save to clipboard history win+v, first you need to download it from https://github.com/equalsraf/win32yank/releases and then put it in C:\win32yank-x64 (no setup in windows required)
 vim.g.clipboard = {
   name = "win32yank-wsl",
@@ -1296,6 +1296,18 @@ vim.g.clipboard = {
   },
   cache_enabled = 0,
 }
+-- make the yank history as the delete history
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    local yank = vim.fn.getreg('"')
+    -- shift numbered registers like deletes
+    for i = 9, 2, -1 do
+      vim.fn.setreg(tostring(i), vim.fn.getreg(tostring(i-1)))
+    end
+    -- store yank in "1
+    vim.fn.setreg('1', yank)
+  end,
+})
 --
 -- The line beneath this is called `modeline`. See `:help modeline--
 -- vim: ts=2 sts=2 sw=2 et
