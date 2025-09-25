@@ -357,6 +357,7 @@ require('lazy').setup({
         { '<leader>q', group = '[Q]uickfixList opts' }, -- //Malin
         { '<leader>p', group = 's[P]lit screen' }, -- //Malin
         { '<leader>g', group = 'Treesitter/LSP motions' }, -- //Malin
+        { '<leader>n', group = '[N]ode selection' }, -- //Malin
         { '<leader>w', group = 'Write/Save/Open' }, -- //Malin
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
@@ -1010,10 +1011,10 @@ require('lazy').setup({
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<leader>gi',
-          node_incremental = '<leader>gg',
+          init_selection = '<leader>ni',
+          node_incremental = '<leader>nn',
           scope_incremental = '<leader>gs',
-          node_decremental = '<leader>gb',
+          node_decremental = '<leader>nb',
         },
       },
       textobjects = {
