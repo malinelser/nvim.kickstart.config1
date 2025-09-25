@@ -1094,6 +1094,7 @@ require('lazy').setup({
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'kickstart.plugins.bufferline', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
   require 'kickstart.plugins.leap', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
+  require 'kickstart.plugins.spectre', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
   --
   --
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -1228,7 +1229,7 @@ require 'kickstart.config.bufferline' -- the config function needs to be run aft
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- move visual text
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z") -- when appending line below to upper line the cursor stays at 0
-vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- standing on a word, replace it  
+vim.keymap.set("n", "<leader>R", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- standing on a word, replace it  
 --
 -- save / open saved sessions
 vim.keymap.set("n", "<leader>ws", [[:mksession ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }) -- save session
@@ -1295,6 +1296,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     -- store yank in "1
     vim.fn.setreg('1', yank)
   end,
+})
+-- Spectre keymaps
+vim.keymap.set('n', '<leader>rs', '<cmd>lua require("spectre").toggle()<CR>', {
+    desc = "Toggle Spectre"
+})
+vim.keymap.set('n', '<leader>rw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+    desc = "Search current word"
+})
+vim.keymap.set('v', '<leader>rv', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})
+vim.keymap.set('n', '<leader>rf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+    desc = "Search on current file"
 })
 --
 -- The line beneath this is called `modeline`. See `:help modeline--
