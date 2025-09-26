@@ -423,9 +423,11 @@ require('lazy').setup({
         defaults = {
           layout_strategy = 'horizontal',
           layout_config = {
-            width = 0.999,
-            height = 0.999,
-            preview_width = 0.45,
+            horizontal = {          -- 👈 only horizontal pickers get these sizes
+              width = 0.999,
+              height = 0.999,
+              preview_width = 0.45,
+            },
           },
         },
         --
@@ -472,13 +474,13 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>/', function()
-        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      -- vim.keymap.set('n', '<leader>/', function() -- //Malin created my own keymap instead
+      --   -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+      --   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+      --     winblend = 10,
+      --     previewer = false,
+      --   })
+      -- end, { desc = '[/] Fuzzily search in current buffer' })
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -1156,6 +1158,7 @@ vim.keymap.set('n', '<C-left>', ':vertical resize -1<CR>', { noremap = true, sil
 vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
 vim.keymap.set('n', '<C-down>', ':resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 vim.keymap.set('n', '<Leader>v', '<C-v>', { noremap = true, silent = true, desc = 'Block visualizing' })
+vim.keymap.set("n", "<leader>/", ':/<C-r>+<CR>', { noremap = true, silent = true, desc = 'Search in file for yanked word' }) -- search in file for last yanked word
 --
 -- Telescope stuff
 -- Search files in parent folder
@@ -1300,16 +1303,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 -- Spectre keymaps
 vim.keymap.set('n', '<leader>rs', '<cmd>lua require("spectre").toggle()<CR>', {
-    desc = "Toggle Spectre"
+  desc = "Toggle Spectre"
 })
 vim.keymap.set('n', '<leader>rw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-    desc = "Search current word"
+  desc = "Search current word"
 })
 vim.keymap.set('v', '<leader>rv', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-    desc = "Search current word"
+  desc = "Search current word"
 })
 vim.keymap.set('n', '<leader>rf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-    desc = "Search on current file"
+  desc = "Search on current file"
 })
 --
 -- The line beneath this is called `modeline`. See `:help modeline--

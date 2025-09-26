@@ -16,7 +16,7 @@ return {
           desc = 'previous query',
         },
         ['toggle_line'] = {
-          map = 'dd',
+          map = '<leader>rd',
           cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
           desc = 'toggle item',
         },
@@ -91,7 +91,7 @@ return {
           desc = 'pick template',
         },
         ['delete_line'] = {
-          map = '<leader>rd0',
+          map = '<leader>rD0',
           cmd = "<cmd>lua require('spectre.actions').run_delete_line()<CR>",
           desc = 'delete whole line from file',
         },
