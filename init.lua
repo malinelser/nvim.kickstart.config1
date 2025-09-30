@@ -1,7 +1,7 @@
 -- filter which-key warnings
 local orig_notify = vim.notify
 vim.notify = function(msg, level, opts)
-  if msg:match("which%-key") and level == vim.log.levels.WARN then
+  if msg:match 'which%-key' and level == vim.log.levels.WARN then
     return
   end
   orig_notify(msg, level, opts)
@@ -180,9 +180,6 @@ vim.o.confirm = true
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic keymaps
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' }) -- //Malin
-
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -358,7 +355,8 @@ require('lazy').setup({
         { '<leader>p', group = 's[P]lit screen' }, -- //Malin
         { '<leader>g', group = 'Treesitter/LSP motions' }, -- //Malin
         { '<leader>n', group = '[N]ode selection' }, -- //Malin
-        { '<leader>w', group = 'Write/Save/Open' }, -- //Malin
+        { '<leader>w', group = '[W]rite/Save/Open' }, -- //Malin
+        { '<leader>d', group = '[D]iagnostics' }, -- //Malin
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
@@ -615,26 +613,26 @@ require('lazy').setup({
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
-    ui = {
-      -- If you are using a Nerd Font: set icons to an empty table which will use the
-      -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-      icons = vim.g.have_nerd_font and {} or {
-        cmd = '⌘',
-        config = '🛠',
-        event = '📅',
-        ft = '📂',
-        init = '⚙',
-        keys = '🗝',
-        plugin = '🔌',
-        runtime = '💻',
-        require = '🌙',
-        source = '📄',
-        start = '🚀',
-        task = '📌',
-        lazy = '💤 ',
-      },
+  ui = {
+    -- If you are using a Nerd Font: set icons to an empty table which will use the
+    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+    icons = vim.g.have_nerd_font and {} or {
+      cmd = '⌘',
+      config = '🛠',
+      event = '📅',
+      ft = '📂',
+      init = '⚙',
+      keys = '🗝',
+      plugin = '🔌',
+      runtime = '💻',
+      require = '🌙',
+      source = '📄',
+      start = '🚀',
+      task = '📌',
+      lazy = '💤 ',
     },
-  })
+  },
+})
 
 -- show path
 vim.opt.winbar = '%=%m %f'
@@ -642,7 +640,7 @@ vim.opt.winbar = '%=%m %f'
 -- Disable LazyVim auto format
 vim.g.autoformat = false
 
-vim.opt.sessionoptions:append { "buffers", "tabpages", "winsize" } -- only save this to session
+vim.opt.sessionoptions:append { 'buffers', 'tabpages', 'winsize' } -- only save this to session
 
 -- Malins own keymaps --
 --
@@ -662,44 +660,13 @@ vim.keymap.set('n', '<C-left>', ':vertical resize -1<CR>', { noremap = true, sil
 vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true, desc = 'Increase vertical size' })
 vim.keymap.set('n', '<C-down>', ':resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 vim.keymap.set('n', '<Leader>v', '<C-v>', { noremap = true, silent = true, desc = 'Block visualizing' })
-vim.keymap.set("n", "<leader>/", ':/<C-r>+<CR>', { noremap = true, silent = true, desc = 'Search in file for yanked word' }) -- search in file for last yanked word
+vim.keymap.set('n', '<leader>/', ':/<C-r>+<CR>', { noremap = true, silent = true, desc = 'Search in file for yanked word' }) -- search in file for last yanked word
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open [d]iagnostic quickfix list' }) -- //Malin
 --
--- Telescope stuff
--- Search files in parent folder
-vim.keymap.set('n', '<Leader>sF', function()
-  require("telescope.builtin").find_files({
-    cwd = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":h"),
-  })
-end, { noremap = true, silent = true, desc = 'Search files in parent folder' })
-
--- Live Grep in parent folder
-vim.keymap.set('n', '<Leader>sG', function()
-  require("telescope.builtin").live_grep({
-    cwd = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":h"),
-  })
-end, { noremap = true, silent = true, desc = 'Search Grep in parent folder' })
-
--- Grep word in parent folder
-vim.keymap.set('n', '<Leader>sW', function()
-  require("telescope.builtin").grep_string({
-    cwd = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":h"),
-  })
-end, { noremap = true, silent = true, desc = 'Search Word in parent folder' })
--- telescope function to search file name under cursor
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>sn", function()
-  builtin.find_files({
-    default_text = vim.fn.expand("<cword>"),  -- word under cursor
-  })
-end, { desc = "[S]earch file [N]ame under cursor" })
--- telescope function to search file name under cursor
-local builtin2 = require("telescope.builtin")
-vim.keymap.set("n", "<leader>sN", function()
-  builtin2.find_files({
-    cwd = vim.fn.fnamemodify(vim.fn.expand("%:p:h"), ":h"),
-    default_text = vim.fn.expand("<cword>"),  -- word under cursor
-  })
-end, { desc = "[S]earch file [N]ame under cursor in parent folder" })
+vim.keymap.set('n', '<leader>dw', function()
+  vim.diagnostic.open_float()
+end, { desc = 'Show diagnostics under the cursor' })
 --
 vim.keymap.set('n', '<Leader>tw', function()
   if vim.wo.wrap then
@@ -734,20 +701,30 @@ vim.keymap.set('n', '<leader>9', ':JumpBufferByOrdinal 9<CR>', { noremap = true,
 require 'kickstart.config.bufferline' -- the config function needs to be run after the keymaps //Malin
 --
 -- Primeagens keymaps //Malin
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- move visual text
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "J", "mzJ`z") -- when appending line below to upper line the cursor stays at 0
-vim.keymap.set("n", "<leader>R", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- standing on a word, replace it  
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv") -- move visual text
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('n', 'J', 'mzJ`z') -- when appending line below to upper line the cursor stays at 0
+vim.keymap.set('n', '<leader>R', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- standing on a word, replace it
 --
 -- save / open saved sessions
-vim.keymap.set("n", "<leader>ws", [[:mksession ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }) -- save session
-vim.keymap.set("n", "<leader>wo", [[:source ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]], { noremap = true, silent = true, desc = 'open saved session' }) -- open saved session
+vim.keymap.set(
+  'n',
+  '<leader>ws',
+  [[:mksession ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]],
+  { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }
+) -- save session
+vim.keymap.set(
+  'n',
+  '<leader>wo',
+  [[:source ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]],
+  { noremap = true, silent = true, desc = 'open saved session' }
+) -- open saved session
 -- run the which-key session config and add the keymap
-local wk = require("which-key")
-local sessions = require("kickstart.config.sessions") -- match the file name
+local wk = require 'which-key'
+local sessions = require 'kickstart.config.sessions' -- match the file name
 wk.register({
-  wd = vim.tbl_extend("force", { name = "Display saved sessions" }, sessions.get_mappings())
-}, { prefix = "<leader>" })
+  wd = vim.tbl_extend('force', { name = 'Display saved sessions' }, sessions.get_mappings()),
+}, { prefix = '<leader>' })
 --
 --
 ---- ======================================
@@ -759,47 +736,47 @@ wk.register({
 --
 --
 -- Normal + Visual + Operator-pending: delete/change/replace → black hole
-vim.keymap.set({"n", "x", "o"}, "d", "\"_d", { noremap = true })
-vim.keymap.set({"n", "x", "o"}, "dd", "\"_dd", { noremap = true })
-vim.keymap.set({"n", "x", "o"}, "D", "\"_D", { noremap = true })
-vim.keymap.set({"n", "x", "o"}, "c", "\"_c", { noremap = true })
-vim.keymap.set({"n", "x", "o"}, "C", "\"_C", { noremap = true })
-vim.keymap.set({"n", "x", "o"}, "x", "\"_x", { noremap = true })
-vim.keymap.set({"n", "x", "o"}, "X", "\"_X", { noremap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, 'd', '"_d', { noremap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, 'dd', '"_dd', { noremap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, 'D', '"_D', { noremap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, 'c', '"_c', { noremap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, 'C', '"_C', { noremap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, 'x', '"_x', { noremap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, 'X', '"_X', { noremap = true })
 
 -- Replace (character-wise) → black hole safe
-vim.keymap.set("n", "r", "\"_r", { noremap = true })
-vim.keymap.set("n", "R", "\"_R", { noremap = true })
-vim.keymap.set("n", "gr", "\"_gr", { noremap = true })
-vim.keymap.set("n", "gR", "\"_gR", { noremap = true })
+vim.keymap.set('n', 'r', '"_r', { noremap = true })
+vim.keymap.set('n', 'R', '"_R', { noremap = true })
+vim.keymap.set('n', 'gr', '"_gr', { noremap = true })
+vim.keymap.set('n', 'gR', '"_gR', { noremap = true })
 
 -- Visual mode paste: don't yank replaced text
-vim.keymap.set("x", "p", "\"_dP", { noremap = true, silent = true })
-vim.keymap.set("x", "P", "\"_dP", { noremap = true, silent = true })
+vim.keymap.set('x', 'p', '"_dP', { noremap = true, silent = true })
+vim.keymap.set('x', 'P', '"_dP', { noremap = true, silent = true })
 
 -- <C-x> → behave like classic 'd' (delete + yank)
-vim.keymap.set({"n", "x", "o"}, "<C-x>", "d", { noremap = true })
+vim.keymap.set({ 'n', 'x', 'o' }, '<C-x>', 'd', { noremap = true })
 --
 -- save to clipboard history win+v, first you need to download it from https://github.com/equalsraf/win32yank/releases and then put it in C:\win32yank-x64 (no setup in windows required)
 vim.g.clipboard = {
-  name = "win32yank-wsl",
+  name = 'win32yank-wsl',
   copy = {
-    ["+"] = "/mnt/c/win32yank-x64/win32yank.exe -i --crlf",
-    ["*"] = "/mnt/c/win32yank-x64/win32yank.exe -i --crlf",
+    ['+'] = '/mnt/c/win32yank-x64/win32yank.exe -i --crlf',
+    ['*'] = '/mnt/c/win32yank-x64/win32yank.exe -i --crlf',
   },
   paste = {
-    ["+"] = "/mnt/c/win32yank-x64/win32yank.exe -o --lf",
-    ["*"] = "/mnt/c/win32yank-x64/win32yank.exe -o --lf",
+    ['+'] = '/mnt/c/win32yank-x64/win32yank.exe -o --lf',
+    ['*'] = '/mnt/c/win32yank-x64/win32yank.exe -o --lf',
   },
   cache_enabled = 0,
 }
 -- make the yank history as the delete history
-vim.api.nvim_create_autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
-    local yank = vim.fn.getreg('"')
+    local yank = vim.fn.getreg '"'
     -- shift numbered registers like deletes
     for i = 9, 2, -1 do
-      vim.fn.setreg(tostring(i), vim.fn.getreg(tostring(i-1)))
+      vim.fn.setreg(tostring(i), vim.fn.getreg(tostring(i - 1)))
     end
     -- store yank in "1
     vim.fn.setreg('1', yank)
@@ -807,16 +784,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 -- Spectre keymaps
 vim.keymap.set('n', '<leader>rs', '<cmd>lua require("spectre").toggle()<CR>', {
-  desc = "Toggle Spectre"
+  desc = 'Toggle Spectre',
 })
 vim.keymap.set('n', '<leader>rw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-  desc = "Search current word"
+  desc = 'Search current word',
 })
 vim.keymap.set('v', '<leader>rv', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-  desc = "Search current word"
+  desc = 'Search current word',
 })
 vim.keymap.set('n', '<leader>rf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-  desc = "Search on current file"
+  desc = 'Search on current file',
 })
 --
 -- The line beneath this is called `modeline`. See `:help modeline--
