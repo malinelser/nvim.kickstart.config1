@@ -7,6 +7,7 @@ return {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
         'nvim-telescope/telescope-fzf-native.nvim',
+        'nvim-telescope/telescope-live-grep-args.nvim',
 
         -- `build` is used to run some command when the plugin is installed/updated.
         -- This is only run then, not every time Neovim starts up.
@@ -87,6 +88,7 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'live_grep_args')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -96,16 +98,25 @@ return {
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set(
+        'n',
+        '<leader>sg',
+        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>"" --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        { desc = '[S]earch by [G]rep' }
+      )
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 
-      vim.keymap.set('n', '<leader>sw', function()
-        builtin.grep_string { initial_mode = 'normal' }
-      end, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set(
+        'n',
+        '<leader>sw',
+        [[:lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor()<CR>--hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        { desc = '[S]earch current [W]ord' }
+      )
 
-      vim.keymap.set('n', '<leader>sr', function()
-        builtin.resume { initial_mode = 'normal' }
-      end, { desc = '[S]earch [R]esume' })
+      -- vim.keymap.set('n', '<leader>sr', function()
+      --   builtin.resume { initial_mode = 'normal' }
+      -- end, { desc = '[S]earch [R]esume' })
 
       -- Malin's Telescope stuff
       -- Search files in parent folder
@@ -126,14 +137,14 @@ return {
       vim.keymap.set('n', '<Leader>sW', function()
         require('telescope.builtin').grep_string {
           cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h'),
-          initial_mode = 'normal', -- start in normal mode
+          -- initial_mode = 'normal', -- start in normal mode
         }
       end, { noremap = true, silent = true, desc = 'Search Word in parent folder' })
       -- telescope function to search file name under cursor
       vim.keymap.set('n', '<leader>sn', function()
         require('telescope.builtin').find_files {
           default_text = vim.fn.expand '<cword>', -- word under cursor
-          initial_mode = 'normal', -- start in normal mode
+          -- initial_mode = 'normal', -- start in normal mode
         }
       end, { desc = '[S]earch file [N]ame under cursor' })
       -- telescope function to search file name under cursor
@@ -141,7 +152,7 @@ return {
         require('telescope.builtin').find_files {
           cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h'),
           default_text = vim.fn.expand '<cword>', -- word under cursor
-          initial_mode = 'normal', -- start in normal mode
+          -- initial_mode = 'normal', -- start in normal mode
         }
       end, { desc = '[S]earch file [N]ame under cursor in parent folder' })
 
