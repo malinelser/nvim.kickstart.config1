@@ -98,7 +98,7 @@ return {
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+      -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' }) -- having function further down to open in normal mode
       vim.keymap.set(
         'n',
         '<leader>sg',
@@ -114,9 +114,9 @@ return {
         { desc = '[S]earch current [W]ord' }
       )
 
-      -- vim.keymap.set('n', '<leader>sr', function()
-      --   builtin.resume { initial_mode = 'normal' }
-      -- end, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>sr', function()
+        builtin.resume { initial_mode = 'normal' }
+      end, { desc = '[S]earch [R]esume' })
 
       -- Malin's Telescope stuff
       -- Search files in parent folder

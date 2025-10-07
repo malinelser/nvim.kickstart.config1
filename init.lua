@@ -7,6 +7,18 @@ vim.notify = function(msg, level, opts)
   orig_notify(msg, level, opts)
 end
 --
+-- Fix normal! gg=G for correct indentation
+-- Use spaces instead of tabs
+vim.o.expandtab = true
+-- Number of spaces per tab
+vim.o.tabstop = 3
+-- Number of spaces per indentation level
+vim.o.shiftwidth = 3
+-- Number of spaces for <Tab> in insert mode
+vim.o.softtabstop = 3
+-- Enable filetype-based indentation
+vim.cmd('filetype plugin indent on')
+--
 --[[
 
 =====================================================================

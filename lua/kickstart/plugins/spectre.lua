@@ -16,7 +16,7 @@ return {
           desc = 'previous query',
         },
         ['toggle_line'] = {
-          map = '<leader>rd',
+          map = 'dd',
           cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
           desc = 'toggle item',
         },
