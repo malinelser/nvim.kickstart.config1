@@ -99,14 +99,20 @@ return {
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' }) -- having function further down to open in normal mode
+      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+      --
       vim.keymap.set(
         'n',
         '<leader>sg',
-        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>"" --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         { desc = '[S]earch by [G]rep' }
       )
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-
+      vim.keymap.set(
+        'n',
+        '<leader>so',
+        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'<connect produce="yes" signal-reference="' --glob '**/CabinComfortModule/**' -txml -L --no-ignore --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        { desc = '[S]earch Signal[O]bject in _out' }
+      )
       vim.keymap.set(
         'n',
         '<leader>sw',
