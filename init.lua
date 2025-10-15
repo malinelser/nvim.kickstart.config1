@@ -17,7 +17,7 @@ vim.o.shiftwidth = 3
 -- Number of spaces for <Tab> in insert mode
 vim.o.softtabstop = 3
 -- Enable filetype-based indentation
-vim.cmd('filetype plugin indent on')
+vim.cmd 'filetype plugin indent on'
 --
 --[[
 
@@ -274,31 +274,77 @@ require('lazy').setup({
 
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
   -- If you prefer to call `setup` explicitly, use:
-  --    {
-  --        'lewis6991/gitsigns.nvim',
-  --        config = function()
-  --            require('gitsigns').setup({
-  --                -- Your gitsigns configuration here
-  --            })
-  --        end,
-  --    }
+  {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup {
+        signs = {
+          add = { text = '+' },
+          change = { text = '~' },
+          delete = { text = '_' },
+          topdelete = { text = '‾' },
+          changedelete = { text = '~' },
+          untracked = { text = '┆' },
+        },
+        signs_staged = {
+          add = { text = '+' },
+          change = { text = '~' },
+          delete = { text = '_' },
+          topdelete = { text = '‾' },
+          changedelete = { text = '~' },
+          untracked = { text = '┆' },
+        },
+        signs_staged_enable = true,
+        signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+        numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+        linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+        word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+        watch_gitdir = {
+          follow_files = true,
+        },
+        auto_attach = true,
+        attach_to_untracked = false,
+        current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+          delay = 1000,
+          ignore_whitespace = false,
+          virt_text_priority = 100,
+          use_focus = true,
+        },
+        current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+        sign_priority = 6,
+        update_debounce = 100,
+        status_formatter = nil, -- Use default
+        max_file_length = 10000, -- Disable if file is longer than this (in lines)
+        preview_config = {
+          -- Options passed to nvim_open_win
+          style = 'minimal',
+          relative = 'cursor',
+          row = 0,
+          col = 1,
+        },
+      }
+    end,
+  },
   --
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
+  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  --   'lewis6991/gitsigns.nvim',
+  --   opts = {
+  --     signs = {
+  --       add = { text = '+' },
+  --       change = { text = '~' },
+  --       delete = { text = '_' },
+  --       topdelete = { text = '‾' },
+  --       changedelete = { text = '~' },
+  --     },
+  --   },
+  -- },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -661,9 +707,6 @@ vim.keymap.set('n', '<Leader>cq', ':q<CR>', { noremap = true, silent = true, des
 vim.keymap.set('n', '<Leader>ca', ':qa<CR>', { noremap = true, silent = true, desc = 'Close all' })
 vim.keymap.set('n', '<Leader>co', ':only<CR>', { noremap = true, silent = true, desc = 'Only keep current screen, close rest' })
 vim.keymap.set('n', '<Leader>cf', ':fc<CR>', { noremap = true, silent = true, desc = 'Close float' })
-vim.keymap.set('n', '<Leader>qs', ':cfdo vsplit<CR>:q<CR>', { noremap = true, silent = true, desc = 'Open all in splits' })
-vim.keymap.set('n', '<Leader>qb', ':cfdo badd %<CR>', { noremap = true, silent = true, desc = 'Open all as buffers' })
-vim.keymap.set('n', '<Leader>qq', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close QFlist' })
 vim.keymap.set('n', '<Leader>på', ':vsplit<CR>', { noremap = true, silent = true, desc = 'Open split vertical' })
 vim.keymap.set('n', '<Leader>pö', ':split<CR>', { noremap = true, silent = true, desc = 'Open split horisontal' })
 vim.keymap.set('n', '<Leader>ww', ':noautocmd w<CR>', { noremap = true, silent = true, desc = 'Write' })
@@ -673,6 +716,15 @@ vim.keymap.set('n', '<C-up>', ':resize +1<CR>', { noremap = true, silent = true,
 vim.keymap.set('n', '<C-down>', ':resize -1<CR>', { noremap = true, silent = true, desc = 'Decrease vertical size' })
 vim.keymap.set('n', '<Leader>v', '<C-v>', { noremap = true, silent = true, desc = 'Block visualizing' })
 vim.keymap.set('n', '<leader>/', ':/<C-r>+<CR>', { noremap = true, silent = true, desc = 'Search in file for yanked word' }) -- search in file for last yanked word
+vim.keymap.set('n', '<Leader>qs', ':cfdo vsplit<CR>:q<CR>', { noremap = true, silent = true, desc = 'Open all in splits' })
+vim.keymap.set('n', '<Leader>qb', ':cfdo badd %<CR>', { noremap = true, silent = true, desc = 'Open all as buffers' })
+vim.keymap.set('n', '<Leader>qq', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close QFlist' })
+vim.keymap.set(
+  'n',
+  '<leader>qr',
+  [[:cfdo %s/\Cold/new/g | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+  { noremap = true, silent = true, desc = 'Search/Replace all in QFlist files, case sensitive' }
+)
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open [d]iagnostic quickfix list' }) -- //Malin
 --
@@ -688,13 +740,7 @@ vim.keymap.set('n', '<Leader>tw', function()
   end
 end, { noremap = true, silent = true, desc = 'Toggle wrap' })
 --
-vim.keymap.set('n', '<Leader>tw', function()
-  if vim.wo.wrap then
-    vim.wo.wrap = false
-  else
-    vim.wo.wrap = true
-  end
-end, { noremap = true, silent = true, desc = 'Toggle wrap' })
+vim.keymap.set('n', '<Leader>tb', ':Gitsigns toggle_current_line_blame<CR>', { noremap = true, silent = true, desc = 'Toggle git [B]lame line' })
 --
 vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>')
 
