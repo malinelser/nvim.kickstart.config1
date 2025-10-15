@@ -130,8 +130,15 @@ return {
         builtin.resume { initial_mode = 'normal' }
       end, { desc = '[S]earch [R]esume' })
 
-      -- Malin's Telescope stuff
-      -- Search files in parent folder
+      -- telescope function to search file name under cursor
+      vim.keymap.set('n', '<leader>sn', function()
+        require('telescope.builtin').find_files {
+          default_text = vim.fn.expand '<cword>', -- word under cursor
+          -- initial_mode = 'normal', -- start in normal mode
+        }
+      end, { desc = '[S]earch file [N]ame under cursor' })
+         -- 
+      -- Search files in parent folder ---------------------------------------------------------------
       vim.keymap.set('n', '<Leader>sF', function()
         require('telescope.builtin').find_files {
           cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h'),
@@ -153,13 +160,6 @@ return {
         }
       end, { noremap = true, silent = true, desc = 'Search Word in parent folder' })
       -- telescope function to search file name under cursor
-      vim.keymap.set('n', '<leader>sn', function()
-        require('telescope.builtin').find_files {
-          default_text = vim.fn.expand '<cword>', -- word under cursor
-          -- initial_mode = 'normal', -- start in normal mode
-        }
-      end, { desc = '[S]earch file [N]ame under cursor' })
-      -- telescope function to search file name under cursor
       vim.keymap.set('n', '<leader>sN', function()
         require('telescope.builtin').find_files {
           cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h'),
@@ -168,6 +168,66 @@ return {
         }
       end, { desc = '[S]earch file [N]ame under cursor in parent folder' })
 
+      -- Search files in grandparent folder ----------------------------------------------------------
+      vim.keymap.set('n', '<Leader>Sf', function()
+        require('telescope.builtin').find_files {
+          cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h'),
+        }
+      end, { noremap = true, silent = true, desc = '[S]earch [f]iles in grandparent folder' })
+
+      -- Live Grep in parent folder
+      vim.keymap.set('n', '<Leader>Sg', function()
+        require('telescope.builtin').live_grep {
+          cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h'),
+        }
+      end, { noremap = true, silent = true, desc = '[S]earch [g]rep in grandparent folder' })
+
+      -- Grep word in parent folder
+      vim.keymap.set('n', '<Leader>Sw', function()
+        require('telescope.builtin').grep_string {
+          cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h'),
+          -- initial_mode = 'normal', -- start in normal mode
+        }
+      end, { noremap = true, silent = true, desc = '[S]earch [w]ord in grandparent folder' })
+
+      vim.keymap.set('n', '<leader>Sn', function()
+        require('telescope.builtin').find_files {
+          cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h'),
+          default_text = vim.fn.expand '<cword>', -- word under cursor
+          -- initial_mode = 'normal', -- start in normal mode
+        }
+      end, { desc = '[S]earch file [n]ame under cursor in grandparent folder' })
+
+      -- Search files in grandparent's parent's folder -----------------------------------------------
+      vim.keymap.set('n', '<Leader>SF', function()
+        require('telescope.builtin').find_files {
+          cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h:h'),
+        }
+      end, { noremap = true, silent = true, desc = '[S]earch [F]iles in grandparent parent folder' })
+
+      -- Live Grep in parent folder
+      vim.keymap.set('n', '<Leader>SG', function()
+        require('telescope.builtin').live_grep {
+          cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h:h'),
+        }
+      end, { noremap = true, silent = true, desc = '[S]earch [G]rep in grandparent parent folder' })
+
+      -- Grep word in parent folder
+      vim.keymap.set('n', '<Leader>SW', function()
+        require('telescope.builtin').grep_string {
+          cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h:h'),
+          -- initial_mode = 'normal', -- start in normal mode
+        }
+      end, { noremap = true, silent = true, desc = '[S]earch [W]ord in grandparent parent folder' })
+
+      vim.keymap.set('n', '<leader>SN', function()
+        require('telescope.builtin').find_files {
+          cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h:h'),
+          default_text = vim.fn.expand '<cword>', -- word under cursor
+          -- initial_mode = 'normal', -- start in normal mode
+        }
+      end, { desc = '[S]earch file [N]ame under cursor in grandparent parent folder' })
+      --
       -- Slightly advanced example of overriding default behavior and theme
       -- vim.keymap.set('n', '<leader>/', function() -- //Malin created my own keymap instead
       --   -- You can pass additional configuration to Telescope to change the theme, layout, etc.

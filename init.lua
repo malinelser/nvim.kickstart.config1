@@ -406,7 +406,8 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>s', group = '[S]earch' },
+        { '<leader>s', group = '[s]earch' },
+        { '<leader>S', group = "[S]earch grandparent's folder" },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>c', group = '[C]lose' }, -- //Malin
         { '<leader>q', group = '[Q]uickfixList opts' }, -- //Malin
