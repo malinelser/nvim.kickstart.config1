@@ -8,6 +8,8 @@ vim.notify = function(msg, level, opts)
 end
 --
 -- Fix normal! gg=G for correct indentation
+-- run this to check all indentation / formatting settings
+-- :set autoindent? | set smartindent? | set cindent? | set cinoptions? | set cinwords? | set shiftwidth? | set tabstop? | set softtabstop? | set expandtab? | set smarttab? | set indentexpr? | set filetype? | set formatoptions?
 -- Use spaces instead of tabs
 vim.o.expandtab = true
 -- Number of spaces per tab
@@ -19,6 +21,7 @@ vim.o.softtabstop = 3
 -- Enable filetype-based indentation
 vim.cmd 'filetype plugin indent on'
 --
+vim.opt.smartindent = true
 --[[
 
 =====================================================================
