@@ -665,7 +665,7 @@ vim.keymap.set('n', '<Leader>qq', ':cclose<CR>', { noremap = true, silent = true
 vim.keymap.set(
   'n',
   '<leader>qr',
-  [[:cfdo %s/\Cold/new/g | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+  [[:cfdo %s/\C<C-r>+/new/g | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
   { noremap = true, silent = true, desc = 'Search/Replace all in QFlist files, case sensitive' }
 )
 -- Diagnostic keymaps
