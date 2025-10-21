@@ -103,6 +103,13 @@ return {
       --
       vim.keymap.set(
         'n',
+        '<leader>sb',
+        [[:Telescope live_grep grep_open_files=true<CR>]],
+        { desc = '[s]earch by grep in [b]uffers' }
+      )
+      --
+      vim.keymap.set(
+        'n',
         '<leader>sg',
         [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         { desc = '[S]earch by [G]rep' }
@@ -137,7 +144,7 @@ return {
           -- initial_mode = 'normal', -- start in normal mode
         }
       end, { desc = '[S]earch file [N]ame under cursor' })
-         -- 
+      --
       -- Search files in parent folder ---------------------------------------------------------------
       vim.keymap.set('n', '<Leader>sF', function()
         require('telescope.builtin').find_files {
