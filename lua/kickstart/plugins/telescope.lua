@@ -117,13 +117,13 @@ return {
       vim.keymap.set(
         'n',
         '<leader>sp',
-        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'<connect produce="yes" signal-reference="' --glob '**/CabinComfortModule/**' -txml -L --no-ignore --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'<connect produce="yes" signal-reference="' --glob 'bazel-out/ems-opt/bin/software/tl-ccm/**' -txml -L --no-ignore --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         { desc = '[S]earch [P]roducing SignalObject in _out' }
       )
       vim.keymap.set(
         'n',
         '<leader>so',
-        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' --glob '**/bazel-out/ems-opt/bin/software/signal/src/**' -txml -L --no-ignore --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' --glob 'bazel-out/ems-opt/bin/software/signal/src/**' -txml -L --no-ignore --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         { desc = '[S]earch Signal[O]bject unit in _out' }
       )
       vim.keymap.set(
