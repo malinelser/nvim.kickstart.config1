@@ -182,6 +182,13 @@ vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 10
+vim.keymap.set('n', '<Leader>ts', function()
+  if (vim.o.scrolloff == 10) then
+    vim.o.scrolloff = 0
+  else
+    vim.o.scrolloff = 10
+  end
+end, { noremap = true, silent = true, desc = 'Toggle minimal visible lines above/below' }) -- //Malin
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
