@@ -521,6 +521,10 @@ require('lazy').setup({
         styles = {
           comments = { italic = false }, -- Disable italics in comments
         },
+        on_colors = function(colors)
+          colors.comment = '#626C9C'
+          colors.fg_gutter = '#547287'
+        end,
       }
 
       -- Load the colorscheme here.
