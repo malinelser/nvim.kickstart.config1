@@ -808,5 +808,54 @@ vim.keymap.set('n', '<leader>rf', '<cmd>lua require("spectre").open_file_search(
   desc = 'Search on current file',
 })
 --
--- The line beneath this is called `modeline`. See `:help modeline--
+
+-- === Auto-fix rightmost splits when more than 3 are open ===
+
+local function fix_rightmost_splits()
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+  if #wins > 3 then
+    -- Get window positions
+    local win_positions = {}
+    for _, win in ipairs(wins) do
+      local pos = vim.api.nvim_win_get_position(win)
+      table.insert(win_positions, {win = win, col = pos[2]})
+    end
+    table.sort(win_positions, function(a, b)
+      return a.col < b.col
+    end)
+
+    -- Reset all windows first
+    for _, w in ipairs(wins) do
+      vim.api.nvim_win_set_option(w, "winfixwidth", false)
+    end
+
+    -- Desired fixed width (set this to your liking)
+    local fixed_width = 141
+
+    -- Fix the two rightmost splits
+    for i = #win_positions - 1, #win_positions do
+      local w = win_positions[i]
+      if w then
+        -- Set width and fix it
+        vim.api.nvim_win_set_width(w.win, fixed_width)
+        vim.api.nvim_win_set_option(w.win, "winfixwidth", true)
+      end
+    end
+  else
+    -- When 3 or fewer splits, unfix all
+    for _, w in ipairs(wins) do
+      vim.api.nvim_win_set_option(w, "winfixwidth", false)
+    end
+  end
+end
+
+-- Auto-run when windows change
+vim.api.nvim_create_autocmd({"WinNew", "WinClosed", "VimResized"}, {
+  callback = function()
+    vim.defer_fn(fix_rightmost_splits, 100)
+  end,
+})
+--
+--
+-- The line beneath this is called `modeline`. See `:help modeline
 -- vim: ts=2 sts=2 sw=2 et
