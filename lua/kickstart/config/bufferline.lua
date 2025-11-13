@@ -4,6 +4,21 @@ if not status_ok then
   return
 end
 
+local function right_align_name(buf)
+  local name = vim.fn.fnamemodify(buf.name, ":t")
+  local max_len = 25 -- if update, also update  "max_name_length"!
+
+  if #name > max_len then
+    local ext = name:match("%.[^%.]+$") or ""  -- extension (e.g. ".lua")
+    local base = name:gsub("%.[^%.]+$", "")    -- strip extension
+    local keep = max_len - #ext - 1            -- -1 for "…"
+    if keep < 1 then keep = 1 end
+    name = "…" .. string.sub(base, -keep) .. ext
+  end
+
+  return name
+end
+
 local setup = {
   highlights = {
     buffer_selected = {
@@ -12,12 +27,16 @@ local setup = {
     },
   },
   options = {
+    name_formatter = right_align_name,
+    pick = {
+      alphabet = 'abcdefghijklmopqrstuvwxyz',
+    },
     indicator = {
       style = 'underline',
     },
     numbers = 'ordinal',
     modified_icon = '●',
-    max_name_length = 18,
+    max_name_length = 25, -- if update, also update "local max_len"!
     max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
     diagnostics = 'false',
     tab_size = 18,

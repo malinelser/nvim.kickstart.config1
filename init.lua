@@ -710,6 +710,8 @@ vim.keymap.set('n', '<leader>6', ':JumpBufferByOrdinal 6<CR>', { noremap = true,
 vim.keymap.set('n', '<leader>7', ':JumpBufferByOrdinal 7<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>8', ':JumpBufferByOrdinal 8<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
 vim.keymap.set('n', '<leader>9', ':JumpBufferByOrdinal 9<CR>', { noremap = true, silent = true, desc = 'Pick buffer by num' })
+vim.keymap.set('n', '<leader>bb', ':BufferLinePick<CR>', { noremap = true, silent = true, desc = 'Pick buffer by letter' })
+vim.keymap.set('n', '<leader>bc', ':BufferLinePickClose<CR>', { noremap = true, silent = true, desc = 'Delete buffer by letter' })
 require 'kickstart.config.bufferline' -- the config function needs to be run after the keymaps //Malin
 --
 -- Primeagens keymaps //Malin
