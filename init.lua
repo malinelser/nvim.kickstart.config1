@@ -740,6 +740,11 @@ wk.register({
   wd = vim.tbl_extend('force', { name = 'Display saved sessions' }, sessions.get_mappings()),
 }, { prefix = '<leader>' })
 --
+-- turn of default vim motion cmd for making visualized text in lower/upper case, since it often unintentionally does it when I think I just do "undo" cmd
+vim.keymap.set("v", "u", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("v", "<leader>u", "u", { noremap = true, silent = true }) -- Map <leader>u to lowercase operator (same as pressing 'u')
+vim.keymap.set("v", "U", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("v", "<leader>U", "U", { noremap = true, silent = true }) -- Map <leader>U to uppercase operator
 --
 ---- ======================================
 -- "Y-only Yanks" Neovim config (with <C-x> as old delete+yank)
