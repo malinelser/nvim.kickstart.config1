@@ -63,13 +63,27 @@ return {
         --
         pickers = {
           live_grep = {
-            file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+            file_ignore_patterns = {
+              '__pycache__',
+              '%.pyc',
+              '%.pyo',
+              '%.git/',
+              'venv/',
+              'build/',
+            },
             additional_args = function(_)
               return { '--hidden' }
             end,
           },
           find_files = {
-            file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+            file_ignore_patterns = {
+              '__pycache__',
+              '%.pyc',
+              '%.pyo',
+              '%.git/',
+              'venv/',
+              'build/',
+            },
             hidden = true,
           },
         },
@@ -101,18 +115,20 @@ return {
       -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' }) -- having function further down to open in normal mode
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       --
-      vim.keymap.set(
-        'n',
-        '<leader>sb',
-        [[:Telescope live_grep grep_open_files=true<CR>]],
-        { desc = '[s]earch by grep in [b]uffers' }
-      )
+      vim.keymap.set('n', '<leader>sb', [[:Telescope live_grep grep_open_files=true<CR>]], { desc = '[s]earch by grep in [b]uffers' })
       --
       vim.keymap.set(
         'n',
         '<leader>sg',
         [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         { desc = '[S]earch by [G]rep' }
+      )
+      -- search in submodules and symlinks
+      vim.keymap.set(
+        'n',
+        '<leader>si',
+        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' -t -L --hidden --no-ignore<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        { desc = '[s]earch by grep, no [i]gnore' }
       )
       vim.keymap.set(
         'n',
