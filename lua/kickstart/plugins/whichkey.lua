@@ -55,6 +55,7 @@ return {
         { '<leader>w', group = '[w]rite/save/open' }, -- //malin
         { '<leader>d', group = '[d]iagnostics' }, -- //malin
         { '<leader>b', group = 'Pick/Close [b]uffer' }, -- //malin
+        { '<leader>r', group = '[r]eplace text' }, -- //malin
         { '<leader>h', group = 'git [h]unk', mode = { 'n', 'v' } },
       },
       sort = { "manual", "group", "alphanum", "mod", "lower", "icase" },

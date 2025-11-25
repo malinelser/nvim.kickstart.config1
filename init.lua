@@ -718,7 +718,8 @@ require 'kickstart.config.bufferline' -- the config function needs to be run aft
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv") -- move visual text
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', 'J', 'mzJ`z') -- when appending line below to upper line the cursor stays at 0
-vim.keymap.set('n', '<leader>R', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- standing on a word, replace it
+vim.keymap.set('n', '<leader>rf', [[:%s/<C-r>+/<C-r>+/gI<Left><Left><Left>]], { noremap = true, silent = true, desc = 'Replace yanked word in file' }) -- standing on a word, replace it
+vim.keymap.set('n', '<leader>rl', [[:s/<C-r>+//gI<Left><Left><Left>]], { noremap = true, silent = true, desc = 'Replace yanked characters on line' }) -- standing on a word, replace it
 --
 -- save / open saved sessions
 vim.keymap.set(
@@ -811,9 +812,9 @@ vim.keymap.set('n', '<leader>rw', '<cmd>lua require("spectre").open_visual({sele
 vim.keymap.set('v', '<leader>rv', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
   desc = 'Search current word',
 })
-vim.keymap.set('n', '<leader>rf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-  desc = 'Search on current file',
-})
+-- vim.keymap.set('n', '<leader>rf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+--   desc = 'Search on current file',
+-- })
 --
 
 -- === Auto-fix rightmost splits when more than 3 are open ===
