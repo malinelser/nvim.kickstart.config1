@@ -1,27 +1,25 @@
--- https://github.com/ggandor/leap.nvim
 return {
-  { -- Fuzzy Finder (files, lsp, etc)
+  {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { -- If encountering errors, see telescope-fzf-native README for installation instructions
+
+      -- fzf native
+      {
         'nvim-telescope/telescope-fzf-native.nvim',
-        'nvim-telescope/telescope-live-grep-args.nvim',
-
-        -- `build` is used to run some command when the plugin is installed/updated.
-        -- This is only run then, not every time Neovim starts up.
         build = 'make',
-
-        -- `cond` is a condition used to determine whether this plugin should be
-        -- installed and loaded.
         cond = function()
           return vim.fn.executable 'make' == 1
         end,
       },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
 
-      -- Useful for getting pretty icons, but requires a Nerd Font.
+      -- live_grep_args
+      {
+        'nvim-telescope/telescope-live-grep-args.nvim',
+      },
+
+      { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
@@ -54,13 +52,12 @@ return {
           layout_strategy = 'horizontal',
           layout_config = {
             horizontal = { -- 👈 only horizontal pickers get these sizes
-              width = 0.999,
-              height = 0.999,
-              preview_width = 0.45,
+              width = { padding = 0 },
+              height = { padding = 0 },
+              preview_width = 0.5,
             },
           },
         },
-        --
         pickers = {
           live_grep = {
             file_ignore_patterns = {
@@ -93,9 +90,7 @@ return {
         --
         --
         extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-          },
+          ['ui-select'] = require('telescope.themes').get_dropdown(),
         },
       }
 
