@@ -108,7 +108,7 @@ return {
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' }) -- having function further down to open in normal mode
-      -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       --
       vim.keymap.set('n', '<leader>sb', [[:Telescope live_grep grep_open_files=true<CR>]], { desc = '[s]earch by grep in [b]uffers' })
       --
@@ -264,15 +264,6 @@ return {
         }
       end, { desc = '[S]earch [/] in Open Files' })
       --
-
-      vim.keymap.set('n', '<leader>sd', function()
-        -- clear quickfix list
-        vim.fn.setqflist {}
-        -- populate quickfix with files from last commit
-        vim.cmd "cgetexpr systemlist('git show --name-only --pretty=format:')"
-        -- open Telescope live_grep restricted to quickfix files
-        vim.cmd 'Telescope live_grep scope=quickfix'
-      end, { desc = 'Live grep in [d]iff files' })
     end,
   },
 }
