@@ -22,6 +22,9 @@ vim.o.softtabstop = 3
 vim.cmd 'filetype plugin indent on'
 --
 vim.opt.smartindent = true
+-- Set timeout to 2000ms to get mini.surround to work
+vim.o.timeoutlen = 5000
+
 --[[
 
 =====================================================================
@@ -546,7 +549,7 @@ require('lazy').setup({
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
+    'nvim-mini/mini.nvim',
     config = function()
       -- Better Around/Inside textobjects
       --
@@ -561,17 +564,7 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup {
-        mappings = {
-          add = 'gsa', -- Add surrounding
-          delete = 'gsd', -- Delete surrounding
-          find = 'gsf', -- Find right surrounding
-          find_left = 'gsF', -- Find left surrounding
-          highlight = 'gsh', -- Highlight surrounding
-          replace = 'gsr', -- Replace surrounding
-          update_n_lines = 'gsn',
-        },
-      }
+      require('mini.surround').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -584,12 +577,10 @@ require('lazy').setup({
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      statusline.section_location = function() return '%2l:%-2v' end
 
       -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
+      --  Check out: https://github.com/nvim-mini/mini.nvim
     end,
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -611,7 +602,7 @@ require('lazy').setup({
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'kickstart.plugins.bufferline', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
-  require 'kickstart.plugins.leap', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
+  -- require 'kickstart.plugins.leap', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
   require 'kickstart.plugins.spectre', -- thought all the plugins in the plugins folder ran automatically but apperantly not //Malin
   --
   --
@@ -726,7 +717,7 @@ vim.keymap.set('n', '<leader>rl', [[:s/<C-r>+//gI<Left><Left><Left>]], { noremap
 vim.keymap.set(
   'n',
   '<leader>ws',
-  [[:mksession ~/.config/nvim/sessions/25.vim<Left><Left><Left><Left>]],
+  [[:mksession ~/.config/nvim/sessions/26.vim<Left><Left><Left><Left>]],
   { noremap = true, silent = true, desc = 'Save session OBS CLOSE EXPLORER' }
 ) -- save session
 vim.keymap.set(
@@ -764,6 +755,7 @@ vim.keymap.set({ 'n', 'x', 'o' }, 'c', '"_c', { noremap = true })
 vim.keymap.set({ 'n', 'x', 'o' }, 'C', '"_C', { noremap = true })
 vim.keymap.set({ 'n', 'x', 'o' }, 'x', '"_x', { noremap = true })
 vim.keymap.set({ 'n', 'x', 'o' }, 'X', '"_X', { noremap = true })
+vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 
 -- Replace (character-wise) → black hole safe
 vim.keymap.set('n', 'r', '"_r', { noremap = true })

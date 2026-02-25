@@ -115,7 +115,7 @@ return {
       vim.keymap.set(
         'n',
         '<leader>sg',
-        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>''<Left>]], --         [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         { desc = '[S]earch by [G]rep' }
       )
       -- search in submodules and symlinks
@@ -140,7 +140,7 @@ return {
       vim.keymap.set(
         'n',
         '<leader>sw',
-        [[:lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor()<CR>--hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        [[:lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor()<CR><Left><Left><Left><Left>]], --         [[:lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor()<CR>--hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         { desc = '[S]earch current [W]ord' }
       )
 
