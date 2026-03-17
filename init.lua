@@ -535,6 +535,11 @@ require('lazy').setup({
         on_colors = function(colors)
           colors.comment = '#626C9C'
           colors.fg_gutter = '#547287'
+          colors.bg_cursorword = "#3B425E"   -- your own new color
+        end,
+        on_highlights = function(hl, c)
+          hl.MiniCursorword = { bg = c.bg_cursorword } -- check what color -> :hi MiniCursorword
+          hl.MiniCursorwordCurrent = { bg = c.bg_cursorword }
         end,
       }
 
