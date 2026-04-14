@@ -103,8 +103,8 @@ return {
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      vim.keymap.set('n', '<leader>ss', builtin.find_files, { desc = '[S]earch Files' })
+      -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' }) -- having function further down to open in normal mode
@@ -117,6 +117,13 @@ return {
         '<leader>sg',
         [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>''<Left>]], --         [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' --hidden<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         { desc = '[S]earch by [G]rep' }
+      )
+      -- search in SLX
+      vim.keymap.set(
+        'n',
+        '<leader>sx',
+        [[:lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>'' -g '*.slx' -a<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        { desc = '[s]earch by grep in slx files' }
       )
       -- search in submodules and symlinks
       vim.keymap.set(
@@ -156,8 +163,16 @@ return {
         }
       end, { desc = '[S]earch file [N]ame under cursor' })
       --
+
+      
+      vim.keymap.set('n', '<Leader>s1s', function()
+        require('telescope.builtin').find_files {
+            cwd = vim.fn.expand '%:p:h',  -- current file's directory
+        }
+      end, { noremap = true, silent = true, desc = 'Search files in current folder' })
+
       -- Search files in parent folder ---------------------------------------------------------------
-      vim.keymap.set('n', '<Leader>sF', function()
+      vim.keymap.set('n', '<Leader>s2s', function()
         require('telescope.builtin').find_files {
           cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h'),
         }
@@ -211,7 +226,7 @@ return {
       end, { desc = '[S]earch file [N]ame under cursor in parent folder' })
 
       -- Search files in grandparent folder ----------------------------------------------------------
-      vim.keymap.set('n', '<Leader>Sf', function()
+      vim.keymap.set('n', '<Leader>s3s', function()
         require('telescope.builtin').find_files {
           cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h'),
         }
@@ -241,7 +256,7 @@ return {
       end, { desc = '[S]earch file [n]ame under cursor in grandparent folder' })
 
       -- Search files in grandparent's parent's folder -----------------------------------------------
-      vim.keymap.set('n', '<Leader>SF', function()
+      vim.keymap.set('n', '<Leader>s4s', function()
         require('telescope.builtin').find_files {
           cwd = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':h:h:h'),
         }
