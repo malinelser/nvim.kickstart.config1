@@ -710,6 +710,7 @@ vim.keymap.set("v", "<leader>u", "u", { noremap = true, silent = true }) -- Map 
 vim.keymap.set("v", "U", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("v", "<leader>U", "U", { noremap = true, silent = true }) -- Map <leader>U to uppercase operator
 vim.keymap.set({ 'n', 'v' }, "<C-n>", "<C-d>", { noremap = true, silent = true }) -- Remap ctrl+d
+vim.keymap.set({ 'n', 'v' }, "<C-m>", "<C-u>", { noremap = true, silent = true }) -- Remap ctrl+u
 vim.keymap.set({ 'n', 'v' }, "gb", "G", { noremap = true, silent = true, desc = 'go to bottom'  }) -- remap G go to bottom
 vim.keymap.set("n", "vv", "V", { noremap = true, silent = true, desc = 'yank line'  }) 
 --
